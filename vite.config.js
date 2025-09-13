@@ -39,11 +39,8 @@ const getVariables = (mode) => {
     return variables
 }
 
-// Modules and extensions
-// If the value is true, then it will copy the files inside the `dist` folders
-// But if the value is false, it will copy the entire module files and folders
 const modulesToCopy = {
-    "@icon/dripicons": false, // With dist folder = false
+    "@icon/dripicons": false,
     "@fortawesome/fontawesome-free": false,
     "rater-js": false,
     "bootstrap-icons": false,
@@ -89,7 +86,7 @@ build({
     configFile: false,
     build: {
         emptyOutDir: false,
-        outDir: resolve(__dirname, 'dist/assets/compiled/js'),
+        outDir: resolve(__dirname, 'assets/compiled/js'),
         lib: {
             name: 'app',
             formats: ['umd'],
@@ -104,8 +101,6 @@ build({
     },
 })
 
-
-
 export default defineConfig((env) => ({
     publicDir: 'static',
     base: './',
@@ -114,7 +109,7 @@ export default defineConfig((env) => ({
         viteStaticCopy({
             targets: [
                 { src: normalizePath(resolve(__dirname, './src/assets/static')), dest: 'assets' },
-                { src: normalizePath(resolve(__dirname, './dist/assets/compiled/fonts')), dest: 'assets/compiled/css' },
+                { src: normalizePath(resolve(__dirname, './assets/compiled/fonts')), dest: 'assets/compiled/css' },
                 { src: normalizePath(resolve(__dirname, "./node_modules/bootstrap-icons/bootstrap-icons.svg")), dest: 'assets/static/images' },
                 ...copyModules
             ],
@@ -126,7 +121,6 @@ export default defineConfig((env) => ({
             templatesDir: root,
             variables: getVariables(env.mode),
             nunjucksEnvironment: {
-
                 filters: {
                     containString: (str, containStr) => {
                         if (!str.length) return false
@@ -153,21 +147,17 @@ export default defineConfig((env) => ({
         emptyOutDir: false,
         manifest: true,
         target: "chrome58",
-        outDir: resolve(__dirname, 'dist'),
+        outDir: resolve(__dirname, '.'),   // ✅ Output directly to root
         rollupOptions: {
             input: files,
             output: {
                 entryFileNames: `assets/compiled/js/[name].js`,
                 chunkFileNames: `assets/compiled/js/[name].js`,
-
                 assetFileNames: (a) => {
                     const extname = a.name.split('.')[1]
                     let folder = extname ? `${extname}/` : ''
-
-                    // Put fonts into css folder
                     if (['woff', 'woff2', 'ttf'].includes(extname))
                         folder = 'fonts/'
-
                     return `assets/compiled/${folder}[name][extname]`
                 }
             }

@@ -1,0 +1,146 @@
+/*------------------------------
+  Variables
+-------------------------------*/
+$primary: #4e73df;
+$secondary: #1cc88a;
+$info: #36b9cc;
+$warning: #f6c23e;
+$danger: #e74a3b;
+$light: #f8f9fc;
+$dark: #5a5c69;
+$card-bg: #ffffff;
+$text-muted: #6c757d;
+$text-dark: #343a40;
+$shadow: rgba(0,0,0,0.05);
+
+/*------------------------------
+  General Page Styling
+-------------------------------*/
+.page-heading {
+  h3 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: $dark;
+  }
+}
+
+.page-content {
+  section {
+    .card {
+      background: $card-bg;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px $shadow;
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 20px $shadow;
+      }
+
+      .card-header {
+        background: transparent;
+        border-bottom: none;
+        h4 {
+          font-weight: 700;
+          color: $dark;
+        }
+      }
+
+      .card-body {
+        padding: 1.5rem;
+      }
+    }
+  }
+}
+
+/*------------------------------
+  Stats Cards
+-------------------------------*/
+.stats-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+
+  &.purple { background: linear-gradient(135deg, #6f42c1, #8e44ad); }
+  &.blue { background: linear-gradient(135deg, #1c92d2, #0f2027); }
+  &.green { background: linear-gradient(135deg, #1cc88a, #17a673); }
+  &.red { background: linear-gradient(135deg, #e74a3b, #c0392b); }
+
+  &:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 10px $shadow;
+  }
+}
+
+h6.font-extrabold {
+  font-size: 1.2rem;
+  color: $dark;
+}
+
+h6.text-muted {
+  font-size: 0.85rem;
+  color: $text-muted;
+}
+
+/*------------------------------
+  Sidebar Profile Card
+-------------------------------*/
+.avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.name {
+  h5 {
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+  }
+  h6 {
+    font-size: 0.85rem;
+    color: $text-muted;
+  }
+}
+
+/*------------------------------
+  Charts Styling
+-------------------------------*/
+#chart-profile-visit,
+#chart-visitors-profile,
+[id^="chart-"] {
+  height: 300px;
+}
+
+#chart-visitors-profile {
+  height: 350px;
+}
+
+/* Mini charts in sidebar */
+.card-body > div[id^="chart-"] {
+  height: 100px;
+}
+
+/*------------------------------
+  Misc
+-------------------------------*/
+.card + .card {
+  margin-top: 1.5rem;
+}
+
+.row {
+  margin-top: 0.5rem;
+}
