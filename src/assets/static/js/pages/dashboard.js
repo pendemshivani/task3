@@ -1,167 +1,102 @@
-var optionsProfileVisit = {
-  annotations: {
-    position: "back",
-  },
-  dataLabels: {
-    enabled: false,
-  },
-  chart: {
-    type: "bar",
-    height: 300,
-  },
-  fill: {
-    opacity: 1,
-  },
-  plotOptions: {},
-  series: [
-    {
-      name: "sales",
-      data: [9, 20, 30, 20, 10, 20, 30, 20, 10, 20, 30, 20],
-    },
-  ],
-  colors: "#435ebe",
-  xaxis: {
-    categories: [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ],
-  },
-}
-let optionsVisitorsProfile = {
-  series: [70, 30],
-  labels: ["Male", "Female"],
-  colors: ["#435ebe", "#55c6e8"],
-  chart: {
-    type: "donut",
-    width: "100%",
-    height: "350px",
-  },
-  legend: {
-    position: "bottom",
-  },
-  plotOptions: {
-    pie: {
-      donut: {
-        size: "30%",
+// src/static/js/pages/dashboard.js
+
+async function loadDashboardData() {
+  try {
+    const response = await fetch("/data/data.json"); // make sure path is correct
+    const data = await response.json();
+
+    // ---------------- Profile Visit (Bar Chart) ----------------
+    const optionsProfileVisit = {
+      annotations: { position: "back" },
+      dataLabels: { enabled: false },
+      chart: { type: "bar", height: 300 },
+      fill: { opacity: 1 },
+      series: [{ name: "Profile Views", data: data.profileViews }],
+      colors: ["#19b055"],
+      xaxis: {
+        categories: [
+          "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+          "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+        ],
       },
-    },
-  },
+    };
+    new ApexCharts(
+      document.querySelector("#chart-profile-visit"),
+      optionsProfileVisit
+    ).render();
+
+    // ---------------- Visitors Profile (Donut Chart) ----------------
+    const optionsVisitorsProfile = {
+      series: data.visitorsProfile,
+      labels: ["Male", "Female"],
+      colors: ["#78be43", "#e8c655"],
+      chart: { type: "donut", width: "100%", height: 350 },
+      legend: { position: "bottom" },
+      plotOptions: { pie: { donut: { size: "30%" } } },
+    };
+    new ApexCharts(
+      document.querySelector("#chart-visitors-profile"),
+      optionsVisitorsProfile
+    ).render();
+
+    // ---------------- Country Traffic (Mini Area Charts) ----------------
+    const commonAreaChartOptions = {
+      chart: { height: 80, type: "area", toolbar: { show: false } },
+      stroke: { width: 2 },
+      grid: { show: false },
+      dataLabels: { enabled: false },
+      xaxis: {
+        type: "datetime",
+        categories: [
+          "2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z",
+          "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z",
+          "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z",
+          "2018-09-19T06:30:00.000Z", "2018-09-19T07:30:00.000Z",
+          "2018-09-19T08:30:00.000Z", "2018-09-19T09:30:00.000Z",
+          "2018-09-19T10:30:00.000Z", "2018-09-19T11:30:00.000Z",
+        ],
+        axisBorder: { show: false },
+        axisTicks: { show: false },
+        labels: { show: false },
+      },
+      yaxis: { labels: { show: false } },
+      tooltip: { x: { format: "dd/MM/yy HH:mm" } },
+    };
+
+    const countryColors = {
+      Europe: "#5350e9",
+      America: "#008b75",
+      India: "#ffc434",
+      Indonesia: "#dc3545",
+      Australia: "#6f42c1",
+      Canada: "#fd7e14",
+      Brazil: "#20c997",
+    };
+
+    for (const [country, values] of Object.entries(data.regions)) {
+      const chartOptions = {
+        ...commonAreaChartOptions,
+        series: [{ name: "Traffic", data: values }],
+        colors: [countryColors[country] || "#5350e9"],
+      };
+      new ApexCharts(
+        document.querySelector(`#chart-${country.toLowerCase()}`),
+        chartOptions
+      ).render();
+    }
+
+    // ---------------- Quick Access Stats ----------------
+    document.getElementById("stat-profile-views").innerText =
+      data.quickAccess.totalViewers;
+    document.getElementById("stat-followers").innerText =
+      data.quickAccess.followers;
+    document.getElementById("stat-following").innerText =
+      data.quickAccess.following;
+    document.getElementById("stat-saved-posts").innerText =
+      data.quickAccess.savedPosts;
+  } catch (err) {
+    console.error("Error loading dashboard data:", err);
+  }
 }
 
-var optionsEurope = {
-  series: [
-    {
-      name: "series1",
-      data: [310, 800, 600, 430, 540, 340, 605, 805, 430, 540, 340, 605],
-    },
-  ],
-  chart: {
-    height: 80,
-    type: "area",
-    toolbar: {
-      show: false,
-    },
-  },
-  colors: ["#5350e9"],
-  stroke: {
-    width: 2,
-  },
-  grid: {
-    show: false,
-  },
-  dataLabels: {
-    enabled: false,
-  },
-  xaxis: {
-    type: "datetime",
-    categories: [
-      "2018-09-19T00:00:00.000Z",
-      "2018-09-19T01:30:00.000Z",
-      "2018-09-19T02:30:00.000Z",
-      "2018-09-19T03:30:00.000Z",
-      "2018-09-19T04:30:00.000Z",
-      "2018-09-19T05:30:00.000Z",
-      "2018-09-19T06:30:00.000Z",
-      "2018-09-19T07:30:00.000Z",
-      "2018-09-19T08:30:00.000Z",
-      "2018-09-19T09:30:00.000Z",
-      "2018-09-19T10:30:00.000Z",
-      "2018-09-19T11:30:00.000Z",
-    ],
-    axisBorder: {
-      show: false,
-    },
-    axisTicks: {
-      show: false,
-    },
-    labels: {
-      show: false,
-    },
-  },
-  show: false,
-  yaxis: {
-    labels: {
-      show: false,
-    },
-  },
-  tooltip: {
-    x: {
-      format: "dd/MM/yy HH:mm",
-    },
-  },
-}
-
-let optionsAmerica = {
-  ...optionsEurope,
-  colors: ["#008b75"],
-}
-let optionsIndia = {
-  ...optionsEurope,
-  colors: ["#ffc434"],
-}
-let optionsIndonesia = {
-  ...optionsEurope,
-  colors: ["#dc3545"],
-}
-
-var chartProfileVisit = new ApexCharts(
-  document.querySelector("#chart-profile-visit"),
-  optionsProfileVisit
-)
-var chartVisitorsProfile = new ApexCharts(
-  document.getElementById("chart-visitors-profile"),
-  optionsVisitorsProfile
-)
-var chartEurope = new ApexCharts(
-  document.querySelector("#chart-europe"),
-  optionsEurope
-)
-var chartAmerica = new ApexCharts(
-  document.querySelector("#chart-america"),
-  optionsAmerica
-)
-var chartIndia = new ApexCharts(
-  document.querySelector("#chart-india"),
-  optionsIndia
-)
-var chartIndonesia = new ApexCharts(
-  document.querySelector("#chart-indonesia"),
-  optionsIndonesia
-)
-
-chartIndonesia.render()
-chartAmerica.render()
-chartIndia.render()
-chartEurope.render()
-chartProfileVisit.render()
-chartVisitorsProfile.render()
+loadDashboardData();

@@ -56,7 +56,7 @@
                     margin-bottom: 0.8rem;
                 }
                 .form-group-compose .compose-btn {
-                    box-shadow: 0 2px 4px 0 rgba(90, 141, 238, 0.6);
+                    box-shadow: 0 2px 4px 0 rgba(212, 206, 134, 0.6);
                     font-weight: 500;
                 }
                 .sidebar-menu-list {
@@ -74,13 +74,13 @@
                     border: none;
                 }
                 .list-group .list-group-item.active {
-                    color: #5a8dee;
+                    color: #bda976;
                 }
                 .list-group .list-group-item.active::before {
                     content: "";
                     width: 2px;
                     height: 30px;
-                    background-color: #5a8dee;
+                    background-color: #e4be78;
                     position: absolute;
                     left: -26px;
                 }
@@ -136,7 +136,7 @@
                 transform: translateX(8%) translateY(1px);
             }
             .card-footer .btn-send {
-                box-shadow: 0 2px 4px 0 rgba(90, 141, 238, 0.6);
+                box-shadow: 0 2px 4px 0 rgba(238, 204, 150, 0.6);
             }
             .close-icon {
                 position: absolute;

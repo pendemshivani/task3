@@ -1,12 +1,12 @@
 {
-  "name": "mazer",
+  "name": "shivani",
   "version": "2.3.1",
   "description": "Free and Open-source Bootstrap 5 Admin Dashboard Template and Landing Page",
   "scripts": {
     "dev": "vite",
     "build": "vite build && npm run prettify",
     "watch": "vite build --watch",
-    "prod-rtl": "npm run build && rtl",
+    "prod-rtl": "npm run build && npm run rtl",
     "rtl": "rtlcss -d \"dist/assets/compiled/css\" -e \".rtl.css\" && find . -type f -name '*.rtl.rtl.css' -delete",
     "prettify": "prettier --write 'dist/*.html'",
     "zip": "bestzip template.zip dist/*",
@@ -72,20 +72,21 @@
     "bestzip": "^2.2.1",
     "browser-sync": "^2.27.11",
     "browser-sync-webpack-plugin": "^2.3.0",
+    "husky": "^9.1.7",
     "postcss": "^8.4.20",
     "prettier": "^3.0.3",
     "release-it": "^15.5.1",
     "resolve-url-loader": "^5.0.0",
     "sass": "^1.67.0",
     "sass-loader": "^13.2.0",
-    "vite": "5.0.2",
+    "vite": "^4.5.0",
     "vite-plugin-nunjucks": "^0.2.0",
     "vite-plugin-static-copy": "^0.13.1"
   },
   "release-it": {
     "hooks": {
       "before:init": [
-        "npm run prodzip"
+        "npm run zip"
       ]
     },
     "npm": {

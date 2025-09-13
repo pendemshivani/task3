@@ -4,7 +4,7 @@
 2. Buat *Branch* fitur pada repositori anda. cth :  (`git checkout -b my-new-feature`).
 3. *Commit* perubahan yang anda lakukan. cth :  (`git commit -am 'Add some feature'`).
 4. *Push* ke repositorimu. cth :  (`git push origin my-new-feature`).
-5. Buat *Pull Request* pada repo **Mazer** (Pada poin pertama).
+5. Buat *Pull Request* pada repo **mazer** (Pada poin pertama).
 
 ## Note
 - Folder `./src` adalah *Working Directory* dari proyek ini.

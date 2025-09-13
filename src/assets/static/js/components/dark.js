@@ -10,7 +10,7 @@ function toggleDarkTheme() {
 }
 
 /**
- * Set theme for mazer
+ * Set theme for shivani
  * @param {"dark"|"light"} theme
  * @param {boolean} persist 
  */

@@ -1,0 +1,175 @@
+// =====================
+// Variables
+// =====================
+$primary-color: #7367f0;
+$secondary-color: #82868b;
+$success-color: #28c76f;
+$danger-color: #ea5455;
+$warning-color: #ff9f43;
+$info-color: #00cfe8;
+$light-color: #f8f9fa;
+$dark-color: #252e48;
+
+// =====================
+// Import Bootstrap & Icons
+// =====================
+@use "sass:color";
+@use "~bootstrap/scss/bootstrap" as *;
+@use "~bootstrap-icons/font/bootstrap-icons" as *;
+
+// =====================
+// Dashboard Card Styles
+// =====================
+.card {
+  border: none;
+  border-radius: 1rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s, box-shadow 0.3s;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+  }
+
+  .card-header {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: $dark-color;
+    background: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  .card-body {
+    padding: 1rem 1.5rem;
+    color: $dark-color;
+  }
+
+  .stats-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 1.5rem;
+
+    &.purple { background: $primary-color; }
+    &.blue { background: $info-color; }
+    &.green { background: $success-color; }
+    &.red { background: $danger-color; }
+    &.orange { background: $warning-color; }
+  }
+}
+
+// =====================
+// Tables
+// =====================
+.table-hover tbody tr:hover {
+  background-color: rgba(115, 103, 240, 0.05);
+  cursor: pointer;
+}
+
+.table thead th {
+  border-bottom: 2px solid $primary-color;
+  font-weight: 600;
+  color: $dark-color;
+}
+
+.table tbody td {
+  vertical-align: middle;
+}
+
+// =====================
+// Avatars
+// =====================
+.avatar {
+  border-radius: 50%;
+  overflow: hidden;
+  display: inline-block;
+
+  img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  &.avatar-xl { width: 70px; height: 70px; }
+  &.avatar-lg { width: 50px; height: 50px; }
+  &.avatar-md { width: 40px; height: 40px; }
+}
+
+// =====================
+// Chart Containers
+// =====================
+#chart-profile-visit,
+#chart-europe,
+#chart-america,
+#chart-india,
+#chart-indonesia,
+#chart-australia,
+#chart-canada,
+#chart-brazil,
+#chart-visitors-profile {
+  min-height: 220px;
+}
+
+.apexcharts-tooltip {
+  background: rgba(0,0,0,0.8) !important;
+  color: #fff !important;
+  border-radius: 8px;
+}
+
+// =====================
+// Buttons
+// =====================
+.btn-outline-primary {
+  border-radius: 0.8rem;
+  font-weight: 600;
+  padding: 0.5rem 1.2rem;
+  transition: all 0.3s;
+
+  &:hover {
+    background: $primary-color;
+    color: #fff;
+  }
+}
+
+// =====================
+// User Card / Sidebar
+// =====================
+.card .name h5 {
+  font-weight: 600;
+  margin-bottom: 0;
+}
+
+.card .name h6 {
+  font-size: 0.9rem;
+  color: $secondary-color;
+}
+
+// =====================
+// Dark Mode Support
+// =====================
+body.dark-mode {
+  background: #1f2430;
+  color: #ddd;
+
+  .card {
+    background: #2c2f48;
+    color: #ddd;
+
+    .card-header {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+  }
+
+  .table-hover tbody tr:hover {
+    background-color: rgba(115, 103, 240, 0.2);
+  }
+
+  .apexcharts-tooltip {
+    background: rgba(255,255,255,0.1) !important;
+    color: #fff !important;
+  }
+}

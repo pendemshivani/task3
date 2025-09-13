@@ -1,11 +1,11 @@
-import { defineConfig, normalizePath, build } from 'vite'
-import fs from 'fs'
-import path, { resolve } from 'path'
+import fs from 'fs';
+import path, { resolve } from 'path';
 import { fileURLToPath } from 'url';
-import nunjucks from 'vite-plugin-nunjucks'
+import { build, defineConfig, normalizePath } from 'vite';
+import nunjucks from 'vite-plugin-nunjucks';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
-import sidebarItems from "./src/sidebar-items.json"
-import horizontalMenuItems from "./src/horizontal-menu-items.json"
+import horizontalMenuItems from "./src/horizontal-menu-items.json";
+import sidebarItems from "./src/sidebar-items.json";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -30,7 +30,7 @@ const getVariables = (mode) => {
     Object.keys(files).forEach((filename) => {
         if (filename.includes('layouts')) filename = `layouts/${filename}`
         variables[filename + '.html'] = {
-            web_title: "Mazer Admin Dashboard",
+            web_title: "shivani Admin Dashboard",
             sidebarItems,
             horizontalMenuItems,
             isDev: mode === 'development'

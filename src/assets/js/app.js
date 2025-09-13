@@ -3,6 +3,7 @@
 import featherIcons from "feather-icons"
 featherIcons.replace()
 
-// Mazer internal JS. Include this in your project to get
+// mazer internal JS. Include this in your project to get
 // the sidebar running.
-import "./mazer" 
+import "./mazer"
+
