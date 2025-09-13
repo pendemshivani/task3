@@ -1,19 +1,54 @@
 {
-  "profileViews": [120, 200, 300, 250, 180, 220, 310, 280, 240, 300, 350, 400],
-  "visitorsProfile": [65, 35],
-  "regions": {
-    "Europe": [320, 750, 680, 450, 590, 410, 710, 880, 480, 630, 520, 710],
-    "America": [220, 650, 520, 410, 530, 360, 580, 720, 370, 500, 430, 600],
-    "India": [520, 1000, 850, 730, 820, 640, 950, 1100, 830, 970, 780, 920],
-    "Indonesia": [150, 450, 380, 290, 370, 230, 410, 520, 310, 450, 340, 490],
-    "Australia": [200, 480, 370, 290, 410, 320, 500, 620, 330, 410, 370, 510],
-    "Canada": [180, 470, 400, 310, 450, 330, 490, 610, 300, 440, 370, 520],
-    "Brazil": [300, 700, 600, 480, 560, 420, 690, 800, 500, 580, 470, 720]
+  "stats": {
+    "profileViews": 112000,
+    "followers": 183000,
+    "following": 80000,
+    "savedPosts": 112
   },
-  "quickAccess": {
-    "totalViewers": 1500,
-    "following": 120,
-    "followers": 980,
-    "savedPosts": 75
-  }
+  "visitors": {
+    "male": 720,
+    "female": 580
+  },
+  "profileVisit": [
+    { "month": "January", "visits": 3200 },
+    { "month": "February", "visits": 2800 },
+    { "month": "March", "visits": 3500 },
+    { "month": "April", "visits": 4100 },
+    { "month": "May", "visits": 3900 },
+    { "month": "June", "visits": 4500 }
+  ],
+  "comments": [
+    { "user": "John Doe", "comment": "Great dashboard! Very clean." },
+    { "user": "Jane Smith", "comment": "Can we add dark mode?" }
+  ],
+  "traffic": {
+    "Europe": 1200,
+    "America": 900,
+    "India": 1500,
+    "Indonesia": 800,
+    "Australia": 600,
+    "Canada": 400,
+    "Brazil": 700
+  },
+  "tasks": [
+    { "id": 1, "task": "Fix login bug", "status": "In Progress" },
+    { "id": 2, "task": "Prepare Q3 report", "status": "Pending" },
+    { "id": 3, "task": "Update dashboard UI", "status": "Completed" }
+  ],
+  "messages": [
+    { "from": "Amit", "message": "Hey, did you check the sales graph?", "time": "2h ago" },
+    { "from": "Priya", "message": "We need to schedule the client meeting.", "time": "5h ago" }
+  ],
+  "revenue": [
+    { "month": "Jan", "amount": 20000 },
+    { "month": "Feb", "amount": 25000 },
+    { "month": "Mar", "amount": 22000 },
+    { "month": "Apr", "amount": 28000 },
+    { "month": "May", "amount": 30000 }
+  ],
+  "notifications": [
+    { "title": "New Follower", "detail": "Rahul started following you" },
+    { "title": "Server Alert", "detail": "CPU usage exceeded 80%" },
+    { "title": "Payment Received", "detail": "$500 credited to your account" }
+  ]
 }
