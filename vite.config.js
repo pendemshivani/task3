@@ -10,157 +10,157 @@ import sidebarItems from "./src/sidebar-items.json";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const root = resolve(__dirname, 'src')
+const root = resolve(__dirname, 'src');
 
 const getFiles = () => {
-    let files = {}
+  let files = {};
+  fs.readdirSync(root)
+    .filter(filename => filename.endsWith('.html'))
+    .forEach(filename => {
+      files[filename.slice(0, -5)] = resolve(root, filename);
+    });
+  return files;
+};
 
-    fs.readdirSync(root)
-        .filter(filename => filename.endsWith('.html'))
-        .forEach(filename => {
-            files[filename.slice(0, -5)] = resolve(root, filename)
-        })
-    return files
-}
-
-const files = getFiles()
+const files = getFiles();
 
 const getVariables = (mode) => {
-    const variables = {}
-    Object.keys(files).forEach((filename) => {
-        if (filename.includes('layouts')) filename = `layouts/${filename}`
-        variables[filename + '.html'] = {
-            web_title: "shivani Admin Dashboard",
-            sidebarItems,
-            horizontalMenuItems,
-            isDev: mode === 'development'
-        }
-    })
-    return variables
-}
+  const variables = {};
+  Object.keys(files).forEach((filename) => {
+    if (filename.includes('layouts')) filename = `layouts/${filename}`;
+    variables[filename + '.html'] = {
+      web_title: "shivani Admin Dashboard",
+      sidebarItems,
+      horizontalMenuItems,
+      isDev: mode === 'development'
+    };
+  });
+  return variables;
+};
 
 const modulesToCopy = {
-    "@icon/dripicons": false,
-    "@fortawesome/fontawesome-free": false,
-    "rater-js": false,
-    "bootstrap-icons": false,
-    apexcharts: true,
-    "perfect-scrollbar": true,
-    flatpickr: true,
-    filepond: true,
-    "filepond-plugin-file-validate-size": true,
-    "filepond-plugin-file-validate-type": true, 
-    "filepond-plugin-image-crop": true,
-    "filepond-plugin-image-exif-orientation": true, 
-    "filepond-plugin-image-filter": true,
-    "filepond-plugin-image-preview": true,
-    "filepond-plugin-image-resize": true,
-    "feather-icons": true,
-    dragula: true,
-    dayjs: false,
-    "chart.js": true,
-    "choices.js": false,
-    parsleyjs: true,
-    sweetalert2: true,
-    summernote: true,
-    jquery: true,
-    quill: true,
-    tinymce: false,
-    "toastify-js": false,
-    "datatables.net": false,
-    "datatables.net-bs5": false,
-    "simple-datatables": true, 
-    jsvectormap: true,
-}
+  "@icon/dripicons": false,
+  "@fortawesome/fontawesome-free": false,
+  "rater-js": false,
+  "bootstrap-icons": false,
+  apexcharts: true,
+  "perfect-scrollbar": true,
+  flatpickr: true,
+  filepond: true,
+  "filepond-plugin-file-validate-size": true,
+  "filepond-plugin-file-validate-type": true,
+  "filepond-plugin-image-crop": true,
+  "filepond-plugin-image-exif-orientation": true,
+  "filepond-plugin-image-filter": true,
+  "filepond-plugin-image-preview": true,
+  "filepond-plugin-image-resize": true,
+  "feather-icons": true,
+  dragula: true,
+  dayjs: false,
+  "chart.js": true,
+  "choices.js": false,
+  parsleyjs: true,
+  sweetalert2: true,
+  summernote: true,
+  jquery: true,
+  quill: true,
+  tinymce: false,
+  "toastify-js": false,
+  "datatables.net": false,
+  "datatables.net-bs5": false,
+  "simple-datatables": true,
+  jsvectormap: true,
+};
 
 const copyModules = Object.keys(modulesToCopy).map(moduleName => {
-    const withDist = modulesToCopy[moduleName]
-    return {
-        src: normalizePath(resolve(__dirname, `./node_modules/${moduleName}${withDist ? '/dist' : ''}`)),
-        dest: 'assets/extensions',
-        rename: moduleName
-    }
-})
+  const withDist = modulesToCopy[moduleName];
+  return {
+    src: normalizePath(resolve(__dirname, `./node_modules/${moduleName}${withDist ? '/dist' : ''}`)),
+    dest: 'assets/extensions',
+    rename: moduleName
+  };
+});
 
+// Pre-build for JS lib
 build({
-    configFile: false,
-    build: {
-        emptyOutDir: false,
-        outDir: resolve(__dirname, 'assets/compiled/js'),
-        lib: {
-            name: 'app',
-            formats: ['umd'],
-            fileName: 'app',
-            entry: './src/assets/js/app.js',
-        },
-        rollupOptions: {
-            output: {
-                entryFileNames: '[name].js'
-            }
-        }
+  configFile: false,
+  build: {
+    emptyOutDir: false,
+    outDir: resolve(__dirname, 'assets/compiled/js'),
+    lib: {
+      name: 'app',
+      formats: ['umd'],
+      fileName: 'app',
+      entry: './src/assets/js/app.js',
     },
-})
+    rollupOptions: {
+      output: {
+        entryFileNames: '[name].js'
+      }
+    }
+  },
+});
 
 export default defineConfig((env) => ({
-    publicDir: 'static',
-    base: './',
-    root,
-    plugins: [
-        viteStaticCopy({
-            targets: [
-                { src: normalizePath(resolve(__dirname, './src/assets/static')), dest: 'assets' },
-                { src: normalizePath(resolve(__dirname, './assets/compiled/fonts')), dest: 'assets/compiled/css' },
-                { src: normalizePath(resolve(__dirname, "./node_modules/bootstrap-icons/bootstrap-icons.svg")), dest: 'assets/static/images' },
-                ...copyModules
-            ],
-            watch: {
-                reloadPageOnChange: true
-            }
-        }),
-        nunjucks({
-            templatesDir: root,
-            variables: getVariables(env.mode),
-            nunjucksEnvironment: {
-                filters: {
-                    containString: (str, containStr) => {
-                        if (!str.length) return false
-                        return str.indexOf(containStr) >= 0
-                    },
-                    startsWith: (str, targetStr) => {
-                        if (!str.length) return false
-                        return str.startsWith(targetStr)
-                    }
-                }
-            }
-        })
-    ],
-    resolve: {
-        alias: {
-            '@': normalizePath(resolve(__dirname, 'src')),
-            '~bootstrap': resolve(__dirname, 'node_modules/bootstrap'),
-            '~bootstrap-icons': resolve(__dirname, 'node_modules/bootstrap-icons'),
-            '~perfect-scrollbar': resolve(__dirname, 'node_modules/perfect-scrollbar'),
-            '~@fontsource': resolve(__dirname, 'node_modules/@fontsource'),
+  publicDir: 'public', // ✅ use public folder
+  base: './',
+  root,
+  plugins: [
+    viteStaticCopy({
+      targets: [
+        { src: normalizePath(resolve(__dirname, './src/assets/static')), dest: 'assets' },
+        { src: normalizePath(resolve(__dirname, './assets/compiled/fonts')), dest: 'assets/compiled/css' },
+        { src: normalizePath(resolve(__dirname, "./node_modules/bootstrap-icons/bootstrap-icons.svg")), dest: 'assets/static/images' },
+        ...copyModules
+      ],
+      watch: {
+        reloadPageOnChange: true
+      }
+    }),
+    nunjucks({
+      templatesDir: root,
+      variables: getVariables(env.mode),
+      nunjucksEnvironment: {
+        filters: {
+          containString: (str, containStr) => {
+            if (!str.length) return false;
+            return str.indexOf(containStr) >= 0;
+          },
+          startsWith: (str, targetStr) => {
+            if (!str.length) return false;
+            return str.startsWith(targetStr);
+          }
         }
-    },
-    build: {
-        emptyOutDir: false,
-        manifest: true,
-        target: "chrome58",
-        outDir: resolve(__dirname, '.'),   // ✅ Output directly to root
-        rollupOptions: {
-            input: files,
-            output: {
-                entryFileNames: `assets/compiled/js/[name].js`,
-                chunkFileNames: `assets/compiled/js/[name].js`,
-                assetFileNames: (a) => {
-                    const extname = a.name.split('.')[1]
-                    let folder = extname ? `${extname}/` : ''
-                    if (['woff', 'woff2', 'ttf'].includes(extname))
-                        folder = 'fonts/'
-                    return `assets/compiled/${folder}[name][extname]`
-                }
-            }
-        },
+      }
+    })
+  ],
+  resolve: {
+    alias: {
+      '@': normalizePath(resolve(__dirname, 'src')),
+      '~bootstrap': resolve(__dirname, 'node_modules/bootstrap'),
+      '~bootstrap-icons': resolve(__dirname, 'node_modules/bootstrap-icons'),
+      '~perfect-scrollbar': resolve(__dirname, 'node_modules/perfect-scrollbar'),
+      '~@fontsource': resolve(__dirname, 'node_modules/@fontsource'),
     }
-}))
+  },
+  build: {
+    emptyOutDir: false,
+    manifest: true,
+    target: "chrome58",
+    outDir: resolve(__dirname, '.'),
+    rollupOptions: {
+      input: files,
+      output: {
+        entryFileNames: `assets/compiled/js/[name].js`,
+        chunkFileNames: `assets/compiled/js/[name].js`,
+        assetFileNames: (a) => {
+          const extname = a.name.split('.')[1];
+          let folder = extname ? `${extname}/` : '';
+          if (['woff', 'woff2', 'ttf'].includes(extname))
+            folder = 'fonts/';
+          return `assets/compiled/${folder}[name][extname]`;
+        }
+      }
+    },
+  }
+}));

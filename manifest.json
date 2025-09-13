@@ -1037,11 +1037,11 @@
   },
   "assets/static/images/flags/um.svg": {
     "file": "assets/compiled/svg/um.svg",
-    "src": "assets/static/images/flags/um.svg"
+    "src": "assets/static/images/flags/us.svg"
   },
   "assets/static/images/flags/us.svg": {
     "file": "assets/compiled/svg/um.svg",
-    "src": "assets/static/images/flags/um.svg"
+    "src": "assets/static/images/flags/us.svg"
   },
   "assets/static/images/flags/uy.svg": {
     "file": "assets/compiled/svg/uy.svg",
