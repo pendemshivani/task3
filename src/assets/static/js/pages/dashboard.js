@@ -2,7 +2,7 @@ async function loadDashboardData() {
   let data;
 
   try {
-    const response = await fetch("/assets/data/data.json");
+    const response = await fetch("./assets/data/data.json");
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
